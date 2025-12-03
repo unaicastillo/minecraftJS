@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
     <script src="player.js"></script>
     <script src="producto.js"></script>
     <script src="enemy.js"></script>
@@ -129,6 +130,7 @@
             <div class="battle-vs">
                 <h2>VS</h2>
                 <div id="battle-result"></div>
+                <div id="battle-damage-info"></div>
             </div>
             <div class="battle-enemy">
                 <h3 id="enemy-name">Enemigo</h3>
@@ -136,6 +138,7 @@
                 <div class="battle-stats">
                     <p>Vida: <span id="battle-enemy-life">100</span></p>
                     <p>Ataque: <span id="battle-enemy-attack">0</span></p>
+                    <p>Puntos: <span id="battle-enemy-points">0</span></p>
                 </div>
             </div>
         </div>
@@ -154,6 +157,7 @@
                 <h3 id="player-rank"></h3>
                 <p id="final-points"></p>
             </div>
+            <button id="restart-btn" class="battle-btn">Volver a Instalar</button>
         </div>
     </div>
 </body>

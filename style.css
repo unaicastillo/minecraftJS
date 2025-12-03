@@ -90,6 +90,15 @@
     background-color: #ffed4e;
 }
 
+.return-btn {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.return-btn:hover {
+    background-color: #ff5252;
+}
+
 .product-card.sold {
     opacity: 0.7;
     filter: grayscale(40%);
@@ -230,6 +239,11 @@
 .inventory-slot:hover {
     border-color: #ffd700;
     box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    transform: scale(1.08);
+}
+
+.inventory-slot.occupied:hover {
+    transform: scale(1.1);
 }
 
 .inventory-slot.occupied {
@@ -242,6 +256,11 @@
     height: 60%;
     object-fit: contain;
     margin-bottom: 4px;
+    transition: transform 0.2s ease;
+}
+
+.inventory-slot:hover .inventory-item-image {
+    transform: scale(1.15);
 }
 
 .inventory-item-name {
@@ -406,6 +425,19 @@
     margin: 5px 0;
 }
 
+#battle-damage-info {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    min-width: 250px;
+}
+
+#battle-damage-info p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
 .battle-actions {
     background-color: rgb(160, 160, 160);
     height: 10vh;
@@ -443,6 +475,7 @@
     display: none;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .victory-screen {
@@ -488,4 +521,380 @@
 .character-result p {
     font-size: 24px;
     color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .characterImg {
+        width: 120px;
+        height: 120px;
+        margin-left: -60px;
+    }
+
+    .playerName {
+        font-size: 22px;
+    }
+
+    .stats-cards {
+        width: 130px;
+        height: 65px;
+    }
+
+    .stats-cards h3 {
+        font-size: 14px;
+    }
+
+    .market {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .inventory-slots {
+        grid-template-columns: repeat(6, 110px);
+    }
+
+    .inventory {
+        height: 28vh;
+    }
+
+    .enemies-container {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .header h3 {
+        font-size: 22px;
+    }
+
+    .continuar {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 720px) {
+    .first {
+        height: 25vh;
+    }
+
+    .second {
+        height: 75vh;
+    }
+
+    .characterImg {
+        width: 100px;
+        height: 100px;
+        margin-left: -40px;
+    }
+
+    .playerName {
+        font-size: 20px;
+        margin-right: 4px;
+    }
+
+    .stats-cards {
+        width: 100px;
+        height: 50px;
+    }
+
+    .stats-cards h3 {
+        font-size: 12px;
+    }
+
+    .continuar {
+        width: 75px;
+        height: 28px;
+        font-size: 14px;
+    }
+
+    .header h3 {
+        font-size: 20px;
+    }
+
+    .market {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 12px;
+        padding: 12px;
+        height: 45vh;
+    }
+
+    .product-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .product-price {
+        font-size: 14px;
+    }
+
+    .buy-btn {
+        padding: 6px;
+        font-size: 14px;
+    }
+
+    .inventory {
+        height: 25vh;
+    }
+
+    .inventory-slots {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+
+    .inventory h3 {
+        font-size: 16px;
+    }
+
+    .inventory-item-name {
+        font-size: 8px;
+    }
+
+    .enemies-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 12px;
+        padding: 12px;
+        height: 70vh;
+    }
+
+    .enemy-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .enemy-name {
+        font-size: 16px;
+    }
+
+    .enemy-stats p {
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    .footer-4 {
+        height: 15vh;
+    }
+
+    .battle-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .battle-player,
+    .battle-enemy {
+        min-width: 200px;
+        padding: 15px;
+    }
+
+    .battle-avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .battle-stats p {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    .battle-vs {
+        font-size: 32px;
+    }
+
+    .battle-vs h2 {
+        font-size: 32px;
+    }
+
+    #battle-result {
+        font-size: 16px;
+    }
+
+    .battle-btn {
+        padding: 10px 18px;
+        font-size: 16px;
+    }
+
+    .victory-screen h1 {
+        font-size: 48px;
+    }
+
+    .character-result {
+        padding: 30px;
+    }
+
+    .character-result img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .character-result h2 {
+        font-size: 22px;
+    }
+
+    .character-result h3 {
+        font-size: 36px;
+    }
+
+    .character-result p {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 360px) {
+    .first {
+        height: 20vh;
+    }
+
+    .second {
+        height: 80vh;
+    }
+
+    .characterImg {
+        width: 70px;
+        height: 70px;
+        margin-left: -20px;
+    }
+
+    .playerName {
+        font-size: 14px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+        padding: 4px;
+    }
+
+    .stats-cards {
+        width: 70px;
+        height: 35px;
+    }
+
+    .stats-cards h3 {
+        font-size: 9px;
+    }
+
+    .continuar {
+        width: 60px;
+        height: 22px;
+        font-size: 11px;
+    }
+
+    .market {
+        grid-template-columns: 1fr;
+        height: 50vh;
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .inventory {
+        height: 20vh;
+    }
+
+    .inventory-slots {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+    }
+
+    .product-image,
+    .enemy-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .product-price {
+        font-size: 12px;
+    }
+
+    .buy-btn {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    .header h3,
+    .battle-header h2 {
+        font-size: 18px;
+    }
+
+    .inventory h3 {
+        font-size: 14px;
+    }
+
+    .battle-player,
+    .battle-enemy {
+        min-width: 140px;
+        padding: 10px;
+    }
+
+    .battle-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .battle-player h3,
+    .battle-enemy h3 {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .battle-stats p {
+        font-size: 11px;
+        padding: 4px;
+        margin: 3px 0;
+    }
+
+    .battle-vs {
+        font-size: 20px;
+        gap: 5px;
+    }
+
+    .battle-vs h2 {
+        font-size: 20px;
+    }
+
+    #battle-result {
+        font-size: 12px;
+    }
+
+    #battle-result p {
+        margin: 3px 0;
+    }
+
+    .battle-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .battle-actions {
+        gap: 8px;
+        flex-wrap: wrap;
+        height: auto;
+        min-height: 10vh;
+        padding: 8px;
+    }
+
+    .victory-screen h1 {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    .character-result {
+        padding: 15px;
+    }
+
+    .character-result img {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 15px;
+    }
+
+    .character-result h2 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .character-result h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .character-result p {
+        font-size: 14px;
+    }
 }

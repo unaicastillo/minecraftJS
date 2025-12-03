@@ -39,20 +39,65 @@ class Player {
             this.defense += product.bonus;
         } else if (type.includes('arma')) {
             this.atack += product.bonus;
-        } else if (type.includes('consumible')) {
-            this.life = Math.min(this.maxLife, this.life + product.bonus);
         }
     }
-    addPoints(){
-
+    
+    removeProductBonus(product) {
+        if (!product || typeof product.bonus !== 'number') return;
+        const type = (product.type || '').toLowerCase();
+        if ( type.includes('armadura')) {
+            this.defense = Math.max(0, this.defense - product.bonus);
+        } else if (type.includes('arma')) {
+            this.atack = Math.max(0, this.atack - product.bonus);
+        }
+    }
+    
+    removeFromInventory(product) {
+        const productIndex = this.inventory.findIndex(item => item && item.id === product.id);
+        if (productIndex === -1) {
+            return { success: false, reason: 'not-found' };
+        }
+        
+        this.inventory[productIndex] = null;
+        this.removeProductBonus(product);
+        
+        return { success: true, slot: productIndex };
+    }
+    
+    useConsumable() {
+        const consumableIndex = this.inventory.findIndex(item => {
+            if (!item) return false;
+            const type = (item.type || '').toLowerCase();
+            return type.includes('consumible');
+        });
+        
+        if (consumableIndex === -1) {
+            return { success: false, reason: 'no-consumable' };
+        }
+        
+        const consumable = this.inventory[consumableIndex];
+        const oldLife = this.life;
+        this.life = Math.min(this.maxLife, this.life + consumable.bonus);
+        const healedAmount = this.life - oldLife;
+        
+        this.inventory[consumableIndex] = null;
+        
+        return { 
+            success: true, 
+            item: consumable, 
+            healedAmount: healedAmount 
+        };
+    }
+    addPoints(points){
+        this.points += points;
     }
     getTotalAtack(){
-
+        this.atack;
     }
     getTotalDefense(){
-
+        this.defense;
     }
     getLifeTotal(){
-        
+        this.life;
     }
 }
