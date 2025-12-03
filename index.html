@@ -9,6 +9,7 @@
     <script src="producto.js"></script>
     <script src="enemy.js"></script>
     <script src="boss.js"></script>
+    <script src="moduleBattle.js"></script>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -112,12 +113,48 @@
         </div>
     </div>
     <div class="scene" id="scene-5">
-        <button class="continuar"></button>
-
+        <div class="battle-header">
+            <h2>Combate</h2>
+        </div>
+        <div class="battle-container">
+            <div class="battle-player">
+                <h3 id="player-name">Jugador</h3>
+                <img src="images/Steve.png" alt="Player" class="battle-avatar">
+                <div class="battle-stats">
+                    <p>Vida: <span id="battle-player-life">100</span></p>
+                    <p>Ataque: <span id="battle-player-attack">0</span></p>
+                    <p>Defensa: <span id="battle-player-defense">0</span></p>
+                </div>
+            </div>
+            <div class="battle-vs">
+                <h2>VS</h2>
+                <div id="battle-result"></div>
+            </div>
+            <div class="battle-enemy">
+                <h3 id="enemy-name">Enemigo</h3>
+                <img id="enemy-avatar" src="" alt="Enemy" class="battle-avatar">
+                <div class="battle-stats">
+                    <p>Vida: <span id="battle-enemy-life">100</span></p>
+                    <p>Ataque: <span id="battle-enemy-attack">0</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="battle-actions">
+            <button id="attack-btn" class="battle-btn">Atacar</button>
+            <button id="next-enemy-btn" class="battle-btn" style="display:none;">Siguiente Enemigo</button>
+            <button id="battle-end-btn" class="battle-btn" style="display:none;">Continuar</button>
+        </div>
     </div>
     <div class="scene" id="scene-6">
-        <button class="continuar"></button>
-
+        <div class="victory-screen">
+            <h1>¡Victoria!</h1>
+            <div class="character-result">
+                <img src="images/Steve.png" alt="Player">
+                <h2>El jugador es:</h2>
+                <h3 id="player-rank"></h3>
+                <p id="final-points"></p>
+            </div>
+        </div>
     </div>
 </body>
 

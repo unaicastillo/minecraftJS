@@ -21,6 +21,13 @@ const enemies = [
     new Boss("Ender Dragon", "images/Ender_Dragon.gif", 40, 200, 1.5, "boss")
 ];
 
+// Add points attribute to each enemy
+enemies[0].points = 150;
+enemies[1].points = 200;
+enemies[2].points = 180;
+enemies[3].points = 120;
+enemies[4].points = 500;
+
 const marketProducts = [
     new Producto("Espada de diamante", "images/swordsSprite.png", 750, "Rara", "Arma", 20),
     new Producto("Pechera de diamante", "images/pecheraDiamante.png", 300, "Rara", "Armadura",25),
@@ -73,7 +80,96 @@ function renderEnemies() {
 	});
 }
 
+function initBattle() {
+	currentEnemyIndex = 0;
+	currentEnemy = enemies[currentEnemyIndex];
+	battleInProgress = true;
+	
+	document.getElementById('player-name').textContent = player.name;
+	document.getElementById('battle-player-life').textContent = player.life;
+	document.getElementById('battle-player-attack').textContent = player.atack;
+	document.getElementById('battle-player-defense').textContent = player.defense;
+	
+	document.getElementById('enemy-name').textContent = currentEnemy.name;
+	document.getElementById('enemy-avatar').src = currentEnemy.avatar;
+	document.getElementById('battle-enemy-life').textContent = currentEnemy.lifePoints;
+	document.getElementById('battle-enemy-attack').textContent = currentEnemy.atackLevel;
+	
+	document.getElementById('battle-messages').innerHTML = `<p>¡Comienza el combate contra ${currentEnemy.name}!</p>`;
+	
+	document.getElementById('attack-btn').style.display = 'inline-block';
+	document.getElementById('next-enemy-btn').style.display = 'none';
+	document.getElementById('battle-end-btn').style.display = 'none';
+}
+
+function playerAttack() {
+	if (!battleInProgress) return;
+	
+	const winner = combat(currentEnemy, player);
+	
+	document.getElementById('battle-player-life').textContent = player.life;
+	document.getElementById('battle-enemy-life').textContent = currentEnemy.lifePoints;
+	
+	const resultDiv = document.getElementById('battle-result');
+	
+	if (winner === player.name) {
+		player.points += currentEnemy.points;
+		resultDiv.innerHTML = `<p style="color: #00ff00; font-weight: bold;">¡${player.name} gana!</p><p style="color: #ffd700;">+${currentEnemy.points} puntos</p>`;
+		updatePlayerStats();
+		document.getElementById('attack-btn').style.display = 'none';
+		
+		if (currentEnemyIndex < enemies.length - 1) {
+			document.getElementById('next-enemy-btn').style.display = 'inline-block';
+		} else {
+			battleInProgress = false;
+			document.getElementById('battle-end-btn').style.display = 'inline-block';
+		}
+	} else {
+		resultDiv.innerHTML = `<p style="color: #ff0000; font-weight: bold;">${currentEnemy.name} gana!</p><p style="color: #ff4444;">Game Over</p>`;
+		battleInProgress = false;
+		document.getElementById('attack-btn').style.display = 'none';
+		document.getElementById('battle-end-btn').textContent = 'Game Over';
+		document.getElementById('battle-end-btn').style.display = 'inline-block';
+	}
+}
+
+function nextEnemy() {
+	currentEnemyIndex++;
+	if (currentEnemyIndex >= enemies.length) return;
+	
+	currentEnemy = enemies[currentEnemyIndex];
+	
+	document.getElementById('enemy-name').textContent = currentEnemy.name;
+	document.getElementById('enemy-avatar').src = currentEnemy.avatar;
+	document.getElementById('battle-enemy-life').textContent = currentEnemy.lifePoints;
+	document.getElementById('battle-enemy-attack').textContent = currentEnemy.atackLevel;
+	
+	document.getElementById('battle-result').innerHTML = '';
+	document.getElementById('attack-btn').style.display = 'inline-block';
+	document.getElementById('next-enemy-btn').style.display = 'none';
+	battleInProgress = true;
+}
+
+document.getElementById('attack-btn')?.addEventListener('click', playerAttack);
+document.getElementById('next-enemy-btn')?.addEventListener('click', nextEnemy);
+document.getElementById('battle-end-btn')?.addEventListener('click', () => {
+	if (player.life > 0) {
+		const rank = player.points >= 2000 ? 'VETERANO' : 'NOVATO';
+		document.getElementById('player-rank').textContent = rank;
+		document.getElementById('final-points').textContent = `Puntos totales: ${player.points}`;
+		
+		scenes.forEach(scene => scene.style.display = 'none');
+		if (scene6) scene6.style.display = 'flex';
+	} else {
+		location.reload();
+	}
+});
+
 const player = new Player("Héroe", "Steve.png", 0, [], 100, 100, 0, 0);
+
+let currentEnemyIndex = 0;
+let currentEnemy = null;
+let battleInProgress = false;
 
 function updatePlayerStats() {
 	document.querySelectorAll('#ataque').forEach(el => el.querySelector('h3').textContent = `ataque:${player.atack}`);
@@ -152,6 +248,11 @@ buttons.forEach(btn => {
             }
             if (nextScene === scene4) {
                 renderEnemies();
+            }
+            if (nextScene === scene5) {
+                nextScene.style.display = 'flex';
+                initBattle();
+                return;
             }
         }
 	});
