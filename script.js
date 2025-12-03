@@ -263,6 +263,17 @@ function renderMarketProducts() {
 					buyBtn.classList.add('return-btn');
 					buyBtn.textContent = 'Devolver';
 					renderInventory();
+					
+					// Añadir animación al slot del inventario
+					const inventorySlots = document.querySelectorAll('.inventory-slot');
+					const targetSlot = inventorySlots[result.slot];
+					if (targetSlot) {
+						targetSlot.classList.add('item-added');
+						setTimeout(() => {
+							targetSlot.classList.remove('item-added');
+						}, 500);
+					}
+					
 					updatePlayerStats();
 					console.log(`${productoEncontrado.name} añadido al inventario (slot ${result.slot})`);
 				} else {

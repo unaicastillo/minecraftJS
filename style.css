@@ -59,6 +59,12 @@
     align-items: center;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    transform: translateY(-5px);
 }
 
 .product-image {
@@ -156,6 +162,14 @@
     border: none;
     width: 80px;
     height: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.continuar:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 #scene-2 {
@@ -256,11 +270,29 @@
     height: 60%;
     object-fit: contain;
     margin-bottom: 4px;
-    transition: transform 0.2s ease;
+    transition: transform 0.3s ease;
 }
 
 .inventory-slot:hover .inventory-item-image {
-    transform: scale(1.15);
+    transform: scale(1.3);
+}
+
+@keyframes itemAdded {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2) rotate(10deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.inventory-slot.item-added {
+    animation: itemAdded 0.5s ease;
 }
 
 .inventory-item-name {
@@ -290,6 +322,13 @@
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border: 2px solid rgb(100, 100, 100);
+    transition: all 0.3s ease;
+}
+
+.enemy-card:hover {
+    box-shadow: 0 8px 16px rgba(255, 68, 68, 0.5);
+    transform: translateY(-5px);
+    border-color: #ff4444;
 }
 
 .boss-card {
@@ -359,6 +398,28 @@
     background-color: rgb(54, 54, 54);
 }
 
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-150%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(150%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 .battle-player,
 .battle-enemy {
     background-color: rgb(80, 80, 80);
@@ -369,8 +430,13 @@
     border: 3px solid #ffd700;
 }
 
+.battle-player {
+    animation: slideInFromLeft 0.8s ease-out;
+}
+
 .battle-enemy {
     border-color: #ff4444;
+    animation: slideInFromRight 0.8s ease-out;
 }
 
 .battle-player h3,
