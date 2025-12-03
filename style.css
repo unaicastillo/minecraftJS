@@ -11,7 +11,7 @@
 }
 
 .characterImg {
-    background-image: url('/images/Steve.png');
+    background-image: url('images/Steve.png');
     background-size: contain;
     background-repeat: no-repeat;
     width: 150px;
