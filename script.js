@@ -3,10 +3,23 @@ const scene1= document.getElementById("scene-1");
 const scene2= document.getElementById("scene-2");
 const scene3= document.getElementById("scene-3");
 const scene4= document.getElementById("scene-4");
+const scene5= document.getElementById("scene-5");
+const scene6= document.getElementById("scene-6");
+const buttons = document.querySelectorAll(".continuar");
 scenes.push(scene1);
 scenes.push(scene2);
 scenes.push(scene3);
 scenes.push(scene4);
+scenes.push(scene5);
+scenes.push(scene6);
+
+const enemies = [
+    new Enemy("Zombie", "images/zombie.png", 15, 80, "normal"),
+    new Enemy("Creeper", "images/Creeper.png", 20, 60, "normal"),
+    new Enemy("Chicken Zombie", "images/chickenzombie.png", 18, 70, "normal"),
+    new Enemy("Enderman", "images/enderman.png", 12, 50, "normal"),
+    new Boss("Ender Dragon", "images/Ender_Dragon.gif", 40, 200, 1.5, "boss")
+];
 
 const marketProducts = [
     new Producto("Espada de diamante", "images/swordsSprite.png", 750, "Rara", "Arma", 20),
@@ -36,6 +49,27 @@ function renderInventory() {
 				slot.classList.remove('occupied');
 			}
 		});
+	});
+}
+
+function renderEnemies() {
+	const enemiesContainer = document.querySelector('.enemies-container');
+	enemiesContainer.innerHTML = '';
+	
+	enemies.forEach(enemy => {
+		const enemyCard = document.createElement('div');
+		enemyCard.className = enemy.type === 'boss' ? 'enemy-card boss-card' : 'enemy-card';
+		
+		enemyCard.innerHTML = `
+			<img src="${enemy.avatar}" alt="${enemy.name}" class="enemy-image">
+			<h3 class="enemy-name">${enemy.name}</h3>
+			<div class="enemy-stats">
+				<p>Ataque: ${enemy.atackLevel}</p>
+				<p>Vida: ${enemy.lifePoints}</p>
+				<p>Tipo: ${enemy.type}</p>
+			</div>
+		`;
+		enemiesContainer.appendChild(enemyCard);
 	});
 }
 
@@ -95,11 +129,10 @@ function renderMarketProducts() {
 
 function initScenes() {
 	scenes.forEach(scene => scene.style.display = "none");
-	scene1.style.display = "block";
+	if (scene1) scene1.style.display = "block";
 	updatePlayerStats(); 
 }
 
-const buttons = document.querySelectorAll(".continuar");
 
 buttons.forEach(btn => {
 	btn.addEventListener("click", e => {
@@ -109,15 +142,18 @@ buttons.forEach(btn => {
 		const currentIndex = scenes.indexOf(currentScene);
 		
 		if (currentIndex < scenes.length - 1) {
-			scenes.forEach(scene => scene.style.display = "none");
-			const nextScene = scenes[currentIndex + 1];
-			nextScene.style.display = "block";
-			renderInventory();
-			updatePlayerStats();
-			if (nextScene === scene2) {
-				renderMarketProducts();
-			}
-		}
+            scenes.forEach(scene => scene.style.display = "none");
+            const nextScene = scenes[currentIndex + 1];
+            nextScene.style.display = "block";
+            renderInventory();
+            updatePlayerStats();
+            if (nextScene === scene2) {
+                renderMarketProducts();
+            }
+            if (nextScene === scene4) {
+                renderEnemies();
+            }
+        }
 	});
 });
 window.addEventListener("DOMContentLoaded", initScenes);

@@ -4,7 +4,6 @@ class Enemy {
         this.name=name;
         this.avatar=avatar;
         this.lifePoints=lifePoints;
-        this.type="";
+        this.type=type || "normal";
     }
-
 }
